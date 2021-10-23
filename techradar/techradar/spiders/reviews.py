@@ -73,11 +73,12 @@ class ReviewsSpider(scrapy.Spider):
     # name = 'reviews'
     # start_urls = [f'https://www.techradar.com/reviews/archive/2020/1/']
     # month = 2
-    
-
-# Proxy rotation
-# Follow links
+# TODO
+# Rotate User Agent - Done
+# Proxy rotation - (if needed)
+# Follow links - Done
 # Replace csv with sql
+# connect GoogleDrive API as FileServer
 
 # def parse(self, response):
 #         months = response.xpath('//table//tr//a/@href').re(r'/archive/year-\d+,month-\d+.cms')
