@@ -1,9 +1,6 @@
 /venv
 links.csv
-/downloads
-/downloads/*
 __pycache__/*
 __pycache__
 *.html
-*.xml
 *.csv
