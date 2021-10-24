@@ -8,6 +8,6 @@ import scrapy
 
 class TechradarItem(scrapy.Item):
     links = scrapy.Field()
+    articles = scrapy.Field()
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
