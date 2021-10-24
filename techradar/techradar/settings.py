@@ -48,7 +48,8 @@ ROBOTSTXT_OBEY = False
 #SPIDER_MIDDLEWARES = {
 #    'techradar.middlewares.TechradarSpiderMiddleware': 543,
 #}
-save_paths = "/Users/panos/Documents/term_project/techradar/techradar/spiders/download_documents/articles_2020.xml"
+# save_paths = "/Users/panos/Documents/term_project/techradar/techradar/spiders/download_documents/articles_2020.xml"
+save_paths = "techradar/techradar/spiders/download_documents/articles_2020.xml"
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
