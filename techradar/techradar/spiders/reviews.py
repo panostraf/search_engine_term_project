@@ -55,7 +55,7 @@ class ReviewsSpider(scrapy.Spider):
                     pass
 
         time.sleep(random.randint(1,4)) # Sleep before the next request
-        if (ReviewsSpider.month) <= 2:
+        if (ReviewsSpider.month) <= 12:
             # Callback on it's self to visit next link (archives of months)
             yield response.follow(next_page, callback=self.parse)
         
