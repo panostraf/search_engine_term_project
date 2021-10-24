@@ -5,3 +5,5 @@ links.csv
 __pycache__/*
 __pycache__
 *.html
+*.xml
+*.csv
