@@ -1,8 +1,10 @@
+from collections import defaultdict
+from typing import DefaultDict
 import bs4
 import re
 
 class PreprocessArticle:
-    def __init__(self):
+    def __init__(self):        
         pass
 
     @staticmethod
@@ -36,7 +38,30 @@ class PreprocessArticle:
 
         art = "<article>" + "\n" + link + "\n" + title + "\n"+ headers + "\n" + lists + "\n" + pars + "\n" + "</article>\n"
         return art
-    
+
+    def tf_idf(articles):
+        from nltk import word_tokenize
+        from nltk.corpus import stopwords
+        import math
+        global_words = DefaultDict(lambda:0)
+        articles = defaultdict()
+        for article in articles:
+            article_words = defaultdict(lambda: 0)
+            words = [w for w in word_tokenize(article) if w not in stopwords]
+            
+            for word in words:
+                global_words[word] +=1
+                article_words[word]+=1
+                
+            articles[article] = article_words
+        
+        for article in articles:
+            for word,frequency in dict(article).items():
+                article[word] = math.log(frequency/global_words[word])
+                
+        for word in global_words.keys():
+            pass
+
 if __name__ == '__main__':
     import bs4
     article_path = """/Users/panos/Documents/term_project/techradar/techradar/spiders/a-small-orange.html"""

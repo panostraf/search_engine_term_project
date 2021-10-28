@@ -1,3 +1,4 @@
+import nltk
 import scrapy
 from ..items import TechradarItem
 import time
@@ -8,17 +9,22 @@ from techradar.spiders.preprocess import PreprocessArticle
 from techradar.spiders.uploader import upload_article
 import os
 from ..settings import save_paths
+from collections import defaultdict
+from nltk import word_tokenize
+from nltk.corpus import stopwords
+# print(stopwords.words('english'))
 
 
 class ReviewsSpider(scrapy.Spider):
     name = 'reviews'
-    start_urls = [f'https://www.techradar.com/reviews/archive/2020/1/']
+    start_urls = [f'https://www.techradar.com/reviews/archive/2021/1/']
     month = 6
     year = 2020
     fpath = os.getcwd()
     output = f"""articles_{str(month)}_{str(year)}.xml"""
     
     save_as = f"""{fpath}/articles_{str(month)}_{str(year)}.xml"""
+    # word_counter = defaultdict(lambda: 0)
     # if not os.path.isfile(save_as):
     #     with open(save_as,'a') as f:
     #         pass
@@ -35,14 +41,15 @@ class ReviewsSpider(scrapy.Spider):
         
         # self.month += 1
         ReviewsSpider.month += 1 # increment month for link pagination
-        next_page = f'https://www.techradar.com/reviews/archive/2020/{str(ReviewsSpider.month)}/'
+        next_page = f'https://www.techradar.com/reviews/archive/2021/{str(ReviewsSpider.month)}/'
         
-        for link in all_links[23:25]:
+        for link in all_links:
             if not re.search("https://www.techradar.com/reviews/archive/.*", link): # filter unnessacary links (eg archive)
                 
                 try:
                     print(link)
                     print(response)
+                    print('\n\n\n')
                     # Get only the links from news or reviews using regex
                     if len(re.findall(r"https://www.techradar.com/(reviews|news)/.", link)) > 0:
                         yield scrapy.Request(link, callback = self.parse_link_contents)
@@ -54,8 +61,12 @@ class ReviewsSpider(scrapy.Spider):
                     # response.follow(next_page, callback=self.parse)
                     pass
 
+                except Exception as e:
+                    print(e)
+                    pass
+
         time.sleep(random.randint(1,4)) # Sleep before the next request
-        if (ReviewsSpider.month) <= 12:
+        if (ReviewsSpider.month) <= 9:
             # Callback on it's self to visit next link (archives of months)
             yield response.follow(next_page, callback=self.parse)
         
@@ -80,13 +91,16 @@ class ReviewsSpider(scrapy.Spider):
         content = soup.prettify()
         link_name = response.url.split('/')[-2] + "_" +response.url.split('/')[-1]
         title = response.url.split('/')[-1]
-        
+      
         with open(save_paths,'a') as f:
             f.write(PreprocessArticle().parse_paragraphs(content,link_name,title))
         f.close()
 
+    
+
+
+
 
 # TODO Proxy rotation - (if needed)
-# TODO Replace csv with sql
 # TODO save file to Azure File server and remove file 
 # connect GoogleDrive API as FileServer

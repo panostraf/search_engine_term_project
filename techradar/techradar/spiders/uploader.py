@@ -9,6 +9,7 @@ def upload_article(source_name,target_name):
     # source_name = "/Users/panos/Documents/term_project/articles_2020.xml"
     # Create a blob client using the local file name as the name for the blob
     con_string = 'DefaultEndpointsProtocol=https;AccountName=articlesdata;AccountKey=qbsGGNzP6w9guZd7weDt/ycWa/ULRIoHHK44P4BuuYQKV5+tkJIBYkffAi876aWMc3vzlP7oi5AM+FfKsB6i3A==;EndpointSuffix=core.windows.net'
+    
     #DefaultEndpointsProtocol=https;AccountName=articlesdata;AccountKey=qbsGGNzP6w9guZd7weDt/ycWa/ULRIoHHK44P4BuuYQKV5+tkJIBYkffAi876aWMc3vzlP7oi5AM+FfKsB6i3A==;EndpointSuffix=core.windows.net
     blob_service_client = BlobServiceClient.from_connection_string(conn_str=con_string)
     blob_client = blob_service_client.get_blob_client(container='articles', blob=target_name)
