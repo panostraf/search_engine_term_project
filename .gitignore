@@ -5,3 +5,5 @@ __pycache__
 *.html
 *.csv
 *.xml
+.DS_Store
+
