@@ -34,7 +34,7 @@ class PreprocessArticle:
     def save_paragraphs(self,content,link,title):
         
         title = "<title>" + title + "</title>"
-        link = '<link>' + link + '</link>'
+        link = '<url>' + link + '</url>'
         content = "<content>" + content + "</content>"
         art = "<article>" + "\n" + link + "\n" + title + "\n"+ content + "\n" + "</article>\n"
         return art
